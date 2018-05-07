@@ -36,12 +36,7 @@ body {
   background: #fff;
 }
 
-.cell:hover,
-.cell.visited:hover {
-  border-color: #f3c;
-}
-
-.cell:hover:not(.visited) {
+.cell.selectedNotVisited {
   background-color: rgba(255,51,204, .3);
 }
 
@@ -50,10 +45,22 @@ body {
   border-color: #aaa;
 }
 
+.cell.selected {
+  border-color: #f3c;
+}
+
 .cell.X:before {
   content: "X";
 }
 
 .cell.O:before {
   content: "O";
+}
+
+#status {
+  height: 50px;
+}
+
+#restartButton {
+  visibility: hidden;
 }

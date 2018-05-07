@@ -9,6 +9,10 @@
   <div class="container">
     <div class="content">
       <h1>Tic Tac Toe</h1>
+      <div id="status">
+        <div id="statusMessage">Welcome! Keyboard controls: Arrow keys + Enter key to place move.</div>
+        <input id="restartButton" type="button" onClick="return TicTacToe.restart()" value="Restart Game">
+      </div>
       <div id="board" class="board">
         <div class="row">
           <div class="cell" data-id="1"></div>
