@@ -1,6 +1,6 @@
 const TicTacToe = (function () {
 
-  // constants
+  // constants - consider putting in separate file
   const WINNING_SETS = [
     [1, 2, 3],
     [4, 5, 6],
@@ -13,6 +13,13 @@ const TicTacToe = (function () {
   ];
   const PLAYER_1 = 'X';
   const PLAYER_2 = 'O';
+  const CLASS_CELL = 'cell';
+  const CLASS_VISITED = 'visited';
+  const ID_BOARD = 'board';
+  const ATTRIBUTE_CELL_ID = 'cell-id';
+  const MESSAGE_PLAYER_TAG = '{player}';
+  const MESSAGE_WIN = 'Player ' + MESSAGE_PLAYER_TAG + ' has won!';
+  const MESSAGE_DRAW = 'It\'s a draw!';
 
   // private variables
   const ownership = {};
@@ -22,11 +29,11 @@ const TicTacToe = (function () {
 
   // private methods
   const addCellListeners = function () {
-    const board = document.getElementById('board');
+    const board = document.getElementById(ID_BOARD);
     board.addEventListener('click', function (e) {
       const cell = e.target;
-      if (!cell.classList.contains('visited')) {
-        cell.classList.add(currentPlayer);
+      if (!cell.classList.contains(CLASS_VISITED)) {
+        cell.classList.add(currentPlayer,CLASS_VISITED);
         ownership[currentPlayer].push(parseInt(cell.getAttribute('data-id'), 10));
         endGameIfOver();
       }
@@ -35,9 +42,9 @@ const TicTacToe = (function () {
 
   const endGameIfOver = function () {
     if (hasCurrentPlayerWon()) {
-      endWithMessage('Player ' + currentPlayer + ' has won!');
+      endWithMessage(MESSAGE_WIN.replace(MESSAGE_PLAYER_TAG,currentPlayer));
     } else if (hasNoWinner()) {
-      endWithMessage('It\'s a draw!');
+      endWithMessage(MESSAGE_DRAW);
     } else {
       toggleCurrentPlayer();
     }
@@ -50,13 +57,13 @@ const TicTacToe = (function () {
   const endWithMessage = function (msg) {
     alert(msg);
 
-    const cells = document.getElementsByClassName('cell');
+    const cells = document.getElementsByClassName(CLASS_CELL);
 
     for (let i = 0, len = cells.length; i < len; i++) {
-      cells[i].classList.remove(PLAYER_1,PLAYER_2,'visited');
+      cells[i].classList.remove(PLAYER_1,PLAYER_2,CLASS_VISITED);
     }
-    ownership.x = [];
-    ownership.o = [];
+    ownership[PLAYER_1] = [];
+    ownership[PLAYER_2] = [];
   }
 
   const hasCurrentPlayerWon = function () {
