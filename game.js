@@ -11,13 +11,14 @@ const TicTacToe = (function () {
     [1, 5, 9],
     [3, 5, 7]
   ];
+  const PLAYER_1 = 'X';
+  const PLAYER_2 = 'O';
 
   // private variables
-  let currentPlayer = 'x';
-  let ownership = {
-    x: [],
-    o: []
-  };
+  const ownership = {};
+  ownership[PLAYER_1] = [];
+  ownership[PLAYER_2] = [];
+  let currentPlayer = PLAYER_1;
 
   // private methods
   const addCellListeners = function () {
@@ -25,7 +26,7 @@ const TicTacToe = (function () {
     board.addEventListener('click', function (e) {
       const cell = e.target;
       if (!cell.classList.contains('visited')) {
-        cell.classList.add(currentPlayer, 'visited');
+        cell.classList.add(currentPlayer);
         ownership[currentPlayer].push(parseInt(cell.getAttribute('data-id'), 10));
         endGameIfOver();
       }
@@ -43,7 +44,7 @@ const TicTacToe = (function () {
   }
 
   const hasNoWinner = function () {
-    return ownership['x'].length + ownership['o'].length === 9;
+    return ownership[PLAYER_1].length + ownership[PLAYER_2].length === 9;
   }
 
   const endWithMessage = function (msg) {
@@ -52,7 +53,7 @@ const TicTacToe = (function () {
     const cells = document.getElementsByClassName('cell');
 
     for (let i = 0, len = cells.length; i < len; i++) {
-      cells[i].classList.remove('x','o','visited');
+      cells[i].classList.remove(PLAYER_1,PLAYER_2,'visited');
     }
     ownership.x = [];
     ownership.o = [];
@@ -73,7 +74,7 @@ const TicTacToe = (function () {
   }
 
   const toggleCurrentPlayer = function () {
-    currentPlayer = currentPlayer === 'x' ? 'o' : 'x';
+    currentPlayer = currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1;
   }
 
   // public methods
