@@ -41,6 +41,22 @@ const TicTacToe = (function () {
     });
   }
 
+  const addHoverMouseEvents = function () {
+    for (let i = 0, len = cells.length; i < len; i++) {
+      const cell = cells[i];
+      cell.onmouseover = function() {
+        if(!cell.classList.contains(CLASS_VISITED)) {
+          cell.classList.add(currentPlayer);
+        }
+      }
+      cell.onmouseout = function() {
+        if(!cell.classList.contains(CLASS_VISITED)) {
+          cell.classList.remove(currentPlayer);
+        }
+      }
+    }
+  }
+
   const continueGame = function () {
 
     if(didCurrentPlayerWin()) {
@@ -82,22 +98,6 @@ const TicTacToe = (function () {
 
   const toggleCurrentPlayer = function () {
     currentPlayer = currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1;
-  }
-
-  const addHoverMouseEvents = function () {
-    for (let i = 0, len = cells.length; i < len; i++) {
-      const cell = cells[i];
-      cell.onmouseover = function() {
-        if(!cell.classList.contains(CLASS_VISITED)) {
-          cell.classList.add(currentPlayer);
-        }
-      }
-      cell.onmouseout = function() {
-        if(!cell.classList.contains(CLASS_VISITED)) {
-          cell.classList.remove(currentPlayer);
-        }
-      }
-    }
   }
 
   // public methods
