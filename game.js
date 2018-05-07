@@ -1,14 +1,14 @@
-var TicTacToe = (function () {
-  var game = {};
+const TicTacToe = (function () {
+  const game = {};
 
   // private variables
-  var $cells = document.getElementsByClassName('cell');
-  var currentPlayer = 'x';
-  var ownership = {
+  const cells = document.getElementsByClassName('cell');
+  let currentPlayer = 'x';
+  let ownership = {
     x: [],
     o: []
   };
-  var winningSets = [
+  const winningSets = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9],
@@ -36,16 +36,16 @@ var TicTacToe = (function () {
 
   function endWithMessage(msg) {
     alert(msg);
-    
-    for (var i = 0, len = $cells.length; i < len; i++) {
-      $cells[i].classList.remove('x','o','visited');
+
+    for (let i = 0, len = cells.length; i < len; i++) {
+      cells[i].classList.remove('x','o','visited');
     }
     ownership.x = [];
     ownership.o = [];
   }
 
   function hasCurrentPlayerWon() {
-    var ownedCells = ownership[currentPlayer];
+    const ownedCells = ownership[currentPlayer];
 
     if (ownedCells.length < 3) {
       return false;
@@ -63,9 +63,9 @@ var TicTacToe = (function () {
   }
 
   function addCellListeners() {
-    $board = document.getElementsByClassName('board')[0];
-    $board.addEventListener('click', function (e) {
-      var cell = e.target;
+    const board = document.getElementById('board');
+    board.addEventListener('click', function (e) {
+      const cell = e.target;
       if (!cell.classList.contains('visited')) {
         cell.classList.add(currentPlayer, 'visited');
         ownership[currentPlayer].push(parseInt(cell.getAttribute('data-id'), 10));
