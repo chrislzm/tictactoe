@@ -34,7 +34,7 @@ const TicTacToe = (function () {
       const cell = e.target;
       if (!cell.classList.contains(CLASS_VISITED)) {
         cell.classList.add(currentPlayer);
-        ownership[currentPlayer].push(parseInt(cell.getAttribute('data-id'), 10));
+        ownership[currentPlayer].push(parseInt(cell.dataset.id, 10));
         endGameIfOver();
       }
     });
