@@ -2,7 +2,6 @@ const TicTacToe = (function () {
   const game = {};
 
   // private variables
-  const cells = document.getElementsByClassName('cell');
   let currentPlayer = 'x';
   let ownership = {
     x: [],
@@ -36,6 +35,8 @@ const TicTacToe = (function () {
 
   function endWithMessage(msg) {
     alert(msg);
+
+    const cells = document.getElementsByClassName('cell');
 
     for (let i = 0, len = cells.length; i < len; i++) {
       cells[i].classList.remove('x','o','visited');
