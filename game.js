@@ -33,7 +33,7 @@ const TicTacToe = (function () {
     board.addEventListener('click', function (e) {
       const cell = e.target;
       if (!cell.classList.contains(CLASS_VISITED)) {
-        cell.classList.add(currentPlayer,CLASS_VISITED);
+        cell.classList.add(currentPlayer);
         ownership[currentPlayer].push(parseInt(cell.getAttribute('data-id'), 10));
         endGameIfOver();
       }
