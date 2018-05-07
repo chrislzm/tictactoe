@@ -22,6 +22,7 @@ const TicTacToe = (function () {
   const MESSAGE_DRAW = 'It\'s a draw!';
 
   // private variables
+  const cells = document.getElementsByClassName(CLASS_CELL);
   const ownership = {};
   ownership[PLAYER_1] = [];
   ownership[PLAYER_2] = [];
@@ -33,7 +34,7 @@ const TicTacToe = (function () {
     board.addEventListener('click', function (e) {
       const cell = e.target;
       if (!cell.classList.contains(CLASS_VISITED)) {
-        cell.classList.add(currentPlayer);
+        cell.classList.add(currentPlayer,CLASS_VISITED);
         ownership[currentPlayer].push(parseInt(cell.dataset.id, 10));
         continueGame();
       }
@@ -53,8 +54,6 @@ const TicTacToe = (function () {
 
   const endWithMessage = function (msg) {
     alert(msg);
-
-    const cells = document.getElementsByClassName(CLASS_CELL);
 
     for (let i = 0, len = cells.length; i < len; i++) {
       cells[i].classList.remove(PLAYER_1,PLAYER_2,CLASS_VISITED);
@@ -85,10 +84,27 @@ const TicTacToe = (function () {
     currentPlayer = currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1;
   }
 
+  const addHoverMouseEvents = function () {
+    for (let i = 0, len = cells.length; i < len; i++) {
+      const cell = cells[i];
+      cell.onmouseover = function() {
+        if(!cell.classList.contains(CLASS_VISITED)) {
+          cell.classList.add(currentPlayer);
+        }
+      }
+      cell.onmouseout = function() {
+        if(!cell.classList.contains(CLASS_VISITED)) {
+          cell.classList.remove(currentPlayer);
+        }
+      }
+    }
+  }
+
   // public methods
   const game = {};
   game.start = function () {
     addCellListeners();
+    addHoverMouseEvents();
   };
   return game;
 
