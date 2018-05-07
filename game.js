@@ -1,6 +1,6 @@
 const TicTacToe = (function () {
 
-  // constants - consider putting in separate file
+  // constants - consider moving to separate file
   const WINNING_SETS = [
     [1, 2, 3],
     [4, 5, 6],
