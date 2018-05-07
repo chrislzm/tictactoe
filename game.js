@@ -35,23 +35,20 @@ const TicTacToe = (function () {
       if (!cell.classList.contains(CLASS_VISITED)) {
         cell.classList.add(currentPlayer);
         ownership[currentPlayer].push(parseInt(cell.dataset.id, 10));
-        endGameIfOver();
+        continueGame();
       }
     });
   }
 
-  const endGameIfOver = function () {
-    if (hasCurrentPlayerWon()) {
+  const continueGame = function () {
+
+    if(didCurrentPlayerWin()) {
       endWithMessage(MESSAGE_WIN.replace(MESSAGE_PLAYER_TAG,currentPlayer));
-    } else if (hasNoWinner()) {
+    } else if(isDrawGame()) {
       endWithMessage(MESSAGE_DRAW);
     } else {
       toggleCurrentPlayer();
     }
-  }
-
-  const hasNoWinner = function () {
-    return ownership[PLAYER_1].length + ownership[PLAYER_2].length === 9;
   }
 
   const endWithMessage = function (msg) {
@@ -66,7 +63,11 @@ const TicTacToe = (function () {
     ownership[PLAYER_2] = [];
   }
 
-  const hasCurrentPlayerWon = function () {
+  const isDrawGame = function () {
+    return ownership[PLAYER_1].length + ownership[PLAYER_2].length === 9;
+  }
+
+  const didCurrentPlayerWin = function () {
     const ownedCells = ownership[currentPlayer];
 
     if (ownedCells.length < 3) {
