@@ -50,10 +50,10 @@ body {
   border-color: #aaa;
 }
 
-.cell.x:before {
-  content: "x";
+.cell.X:before {
+  content: "X";
 }
 
-.cell.o:before {
-  content: "o";
+.cell.O:before {
+  content: "O";
 }
