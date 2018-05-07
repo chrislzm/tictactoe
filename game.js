@@ -61,31 +61,31 @@ const TicTacToe = (function () {
     $(document).on('keydown', function(e) {
       const key = e.which;
       switch(key) {
-        case KEY_ENTER: // Enter
+        case KEY_ENTER:
           makeMove(cells[curCell]);
           break;
-        case KEY_LEFT: // Left
+        case KEY_LEFT:
           if(curCell %3 != 0) { // If we're not on the leftmost column
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell -= 1;
             tempMarkCell(cells[curCell],currentPlayer);
           }
           break;
-        case KEY_UP: // Up
+        case KEY_UP:
           if(curCell >= 3) { // If we're below the top row
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell -= 3;
             tempMarkCell(cells[curCell],currentPlayer);
           }
           break;
-        case KEY_RIGHT: // Right
+        case KEY_RIGHT:
           if((curCell+1)%3 != 0) { // If we're not on the rightmost column
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell += 1;
             tempMarkCell(cells[curCell],currentPlayer);
           }
           break;
-        case KEY_DOWN: // Down
+        case KEY_DOWN:
           if(curCell <= 5) { // If we're not on the bottom row
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell += 3;
