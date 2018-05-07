@@ -1,0 +1,59 @@
+body {
+  color: #444;
+  font-family: sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  width: 960px;
+}
+
+.board {
+  border: 1px solid #f3c;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  align-items: center;
+  background: #efefef;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  height: 100px;
+  justify-content: center;
+  width: 100px;
+}
+
+.cell:nth-child(2n) {
+  background: #fff;
+}
+
+.cell:hover,
+.cell.visited:hover {
+  border-color: #f3c;
+}
+
+.cell:hover:not(.visited) {
+  background-color: rgba(255,51,204, .3);
+}
+
+.cell.visited {
+  background: #ccc;
+  border-color: #aaa;
+}
+
+.cell.x:before {
+  content: "x";
+}
+
+.cell.o:before {
+  content: "o";
+}
