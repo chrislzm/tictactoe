@@ -23,6 +23,11 @@ const TicTacToe = (function () {
   const MESSAGE_PLAYER_TAG = '{player}';
   const MESSAGE_WIN = 'Player ' + MESSAGE_PLAYER_TAG + ' has won!';
   const MESSAGE_DRAW = 'It\'s a draw!';
+  const KEY_LEFT = 37;
+  const KEY_UP = 38;
+  const KEY_RIGHT = 39;
+  const KEY_DOWN = 40;
+  const KEY_ENTER = 13;
 
   // private variables
   const $board = $('#' + ELEMENT_ID_BOARD);
@@ -54,33 +59,34 @@ const TicTacToe = (function () {
 
   const addKeyPressListener = function () {
     $(document).on('keydown', function(e) {
-      switch(e.which) {
-        case 13: // Enter
+      const key = e.which;
+      switch(key) {
+        case KEY_ENTER: // Enter
           makeMove(cells[curCell]);
           break;
-        case 37: // Left
-          if(curCell !== 0 && curCell !== 3 && curCell !== 6) {
+        case KEY_LEFT: // Left
+          if(curCell %3 != 0) { // If we're not on the leftmost column
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell -= 1;
             tempMarkCell(cells[curCell],currentPlayer);
           }
           break;
-        case 38: // Up
-          if(curCell >= 3) {
+        case KEY_UP: // Up
+          if(curCell >= 3) { // If we're below the top row
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell -= 3;
             tempMarkCell(cells[curCell],currentPlayer);
           }
           break;
-        case 39: // Right
-          if(curCell !== 2 && curCell !== 5 && curCell !== 8) {
+        case KEY_RIGHT: // Right
+          if((curCell+1)%3 != 0) { // If we're not on the rightmost column
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell += 1;
             tempMarkCell(cells[curCell],currentPlayer);
           }
           break;
-        case 40: // Down
-          if(curCell <= 5) {
+        case KEY_DOWN: // Down
+          if(curCell <= 5) { // If we're not on the bottom row
             tempUnmarkCell(cells[curCell],currentPlayer);
             curCell += 3;
             tempMarkCell(cells[curCell],currentPlayer);
