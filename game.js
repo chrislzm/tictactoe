@@ -32,7 +32,7 @@ const TicTacToe = (function () {
   // private variables
   const $board = $('#' + ELEMENT_ID_BOARD);
   let currentPlayer = PLAYER_1;
-  let curCell = 0;
+  let curCell = 3; // Zero-based current cell index
   let gameOver = false;
   const ownership = {};
   ownership[PLAYER_1] = [];
@@ -52,7 +52,11 @@ const TicTacToe = (function () {
   const makeMove = function (cell) {
     if (!gameOver && !cell.classList.contains(CLASS_VISITED)) {
       cell.classList.add(currentPlayer,CLASS_VISITED);
-      ownership[currentPlayer].push(parseInt(cell.dataset.id, 10));
+      tempUnmarkCell(cells[curCell],currentPlayer); // Leave the previous cell
+      tempMarkCell(cell,currentPlayer); // Select the current cell
+      const cellId = parseInt(cell.dataset.id, 10);
+      ownership[currentPlayer].push(cellId);
+      curCell = cellId-1;
       continueGame();
     }
   }
