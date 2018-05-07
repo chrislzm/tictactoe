@@ -28,6 +28,7 @@ const TicTacToe = (function () {
   const $board = $('#' + ELEMENT_ID_BOARD);
   let currentPlayer = PLAYER_1;
   let curCell = 0;
+  let gameOver = false;
   const ownership = {};
   ownership[PLAYER_1] = [];
   ownership[PLAYER_2] = [];
@@ -44,7 +45,7 @@ const TicTacToe = (function () {
   }
 
   const makeMove = function (cell) {
-    if (!cell.classList.contains(CLASS_VISITED)) {
+    if (!gameOver && !cell.classList.contains(CLASS_VISITED)) {
       cell.classList.add(currentPlayer,CLASS_VISITED);
       ownership[currentPlayer].push(parseInt(cell.dataset.id, 10));
       continueGame();
@@ -90,10 +91,6 @@ const TicTacToe = (function () {
     })
   }
 
-  const removeCellListeners = function() {
-    $board.off();
-  }
-
   const addMouseOverEvents = function () {
     for (let i = 0, len = cells.length; i < len; i++) {
       const cell = cells[i];
@@ -133,8 +130,8 @@ const TicTacToe = (function () {
   }
 
   const endWithMessage = function (msg) {
+    gameOver = true;
     statusMessage.innerHTML = msg;
-    removeCellListeners();
     restartButton.style.visibility = "visible";
   }
 
@@ -146,7 +143,7 @@ const TicTacToe = (function () {
     }
     ownership[PLAYER_1] = [];
     ownership[PLAYER_2] = [];
-    addCellListeners();
+    gameOver = false;
   }
 
   const isDrawGame = function () {
