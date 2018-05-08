@@ -31,7 +31,7 @@ const TicTacToe = (function () {
 
   // private variables
   const $board = $('#' + ELEMENT_ID_BOARD);
-  let currentPlayer = PLAYER_1;
+  let curPlayer = PLAYER_1;
   let curCell = 3; // Zero-based current cell index
   let gameOver = false;
   const ownership = {};
@@ -51,11 +51,11 @@ const TicTacToe = (function () {
 
   const makeMove = function (cell) {
     if (!gameOver && !cell.classList.contains(CLASS_VISITED)) {
-      cell.classList.add(currentPlayer,CLASS_VISITED);
-      tempUnmarkCell(cells[curCell],currentPlayer); // Leave the previous cell
-      tempMarkCell(cell,currentPlayer); // Select the current cell
+      cell.classList.add(curPlayer,CLASS_VISITED);
+      tempUnmarkCell(cells[curCell],curPlayer); // Leave the previous cell
+      tempMarkCell(cell,curPlayer); // Select the current cell
       const cellId = parseInt(cell.dataset.id, 10);
-      ownership[currentPlayer].push(cellId);
+      ownership[curPlayer].push(cellId);
       curCell = cellId-1;
       continueGame();
     }
@@ -70,30 +70,30 @@ const TicTacToe = (function () {
           break;
         case KEY_LEFT:
           if(curCell %3 != 0) { // If we're not on the leftmost column
-            tempUnmarkCell(cells[curCell],currentPlayer);
+            tempUnmarkCell(cells[curCell],curPlayer);
             curCell -= 1;
-            tempMarkCell(cells[curCell],currentPlayer);
+            tempMarkCell(cells[curCell],curPlayer);
           }
           break;
         case KEY_UP:
           if(curCell >= 3) { // If we're below the top row
-            tempUnmarkCell(cells[curCell],currentPlayer);
+            tempUnmarkCell(cells[curCell],curPlayer);
             curCell -= 3;
-            tempMarkCell(cells[curCell],currentPlayer);
+            tempMarkCell(cells[curCell],curPlayer);
           }
           break;
         case KEY_RIGHT:
           if((curCell+1)%3 != 0) { // If we're not on the rightmost column
-            tempUnmarkCell(cells[curCell],currentPlayer);
+            tempUnmarkCell(cells[curCell],curPlayer);
             curCell += 1;
-            tempMarkCell(cells[curCell],currentPlayer);
+            tempMarkCell(cells[curCell],curPlayer);
           }
           break;
         case KEY_DOWN:
           if(curCell <= 5) { // If we're not on the bottom row
-            tempUnmarkCell(cells[curCell],currentPlayer);
+            tempUnmarkCell(cells[curCell],curPlayer);
             curCell += 3;
-            tempMarkCell(cells[curCell],currentPlayer);
+            tempMarkCell(cells[curCell],curPlayer);
           }
           break;
         default:
@@ -105,12 +105,12 @@ const TicTacToe = (function () {
     for (let i = 0, len = cells.length; i < len; i++) {
       const cell = cells[i];
       cell.onmouseover = function() {
-        tempUnmarkCell(cells[curCell],currentPlayer);
+        tempUnmarkCell(cells[curCell],curPlayer);
         curCell = i;
-        tempMarkCell(cell,currentPlayer);
+        tempMarkCell(cell,curPlayer);
       }
       cell.onmouseout = function() {
-        tempUnmarkCell(cell,currentPlayer);
+        tempUnmarkCell(cell,curPlayer);
       }
     }
   }
@@ -130,12 +130,12 @@ const TicTacToe = (function () {
   }
 
   const continueGame = function () {
-    if(didCurrentPlayerWin()) {
-      endWithMessage(MESSAGE_WIN.replace(MESSAGE_PLAYER_TAG,currentPlayer));
+    if(didcurPlayerWin()) {
+      endWithMessage(MESSAGE_WIN.replace(MESSAGE_PLAYER_TAG,curPlayer));
     } else if(isDrawGame()) {
       endWithMessage(MESSAGE_DRAW);
     } else {
-      toggleCurrentPlayer();
+      togglecurPlayer();
     }
   }
 
@@ -154,14 +154,15 @@ const TicTacToe = (function () {
     ownership[PLAYER_1] = [];
     ownership[PLAYER_2] = [];
     gameOver = false;
+    curPlayer = PLAYER_1;
   }
 
   const isDrawGame = function () {
     return ownership[PLAYER_1].length + ownership[PLAYER_2].length === 9;
   }
 
-  const didCurrentPlayerWin = function () {
-    const ownedCells = ownership[currentPlayer];
+  const didcurPlayerWin = function () {
+    const ownedCells = ownership[curPlayer];
 
     if (ownedCells.length < 3) {
       return false;
@@ -174,8 +175,8 @@ const TicTacToe = (function () {
       }).length > 0;
   }
 
-  const toggleCurrentPlayer = function () {
-    currentPlayer = currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1;
+  const togglecurPlayer = function () {
+    curPlayer = curPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1;
   }
 
   // public methods
