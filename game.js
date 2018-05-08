@@ -130,12 +130,12 @@ const TicTacToe = (function () {
   }
 
   const continueGame = function () {
-    if(didcurPlayerWin()) {
+    if(didCurPlayerWin()) {
       endWithMessage(MESSAGE_WIN.replace(MESSAGE_PLAYER_TAG,curPlayer));
     } else if(isDrawGame()) {
       endWithMessage(MESSAGE_DRAW);
     } else {
-      togglecurPlayer();
+      toggleCurPlayer();
     }
   }
 
@@ -161,7 +161,7 @@ const TicTacToe = (function () {
     return ownership[PLAYER_1].length + ownership[PLAYER_2].length === 9;
   }
 
-  const didcurPlayerWin = function () {
+  const didCurPlayerWin = function () {
     const ownedCells = ownership[curPlayer];
 
     if (ownedCells.length < 3) {
@@ -175,7 +175,7 @@ const TicTacToe = (function () {
       }).length > 0;
   }
 
-  const togglecurPlayer = function () {
+  const toggleCurPlayer = function () {
     curPlayer = curPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1;
   }
 
