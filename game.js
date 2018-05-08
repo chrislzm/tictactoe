@@ -43,7 +43,7 @@ const TicTacToe = (function () {
 
   // private methods
   const addCellListeners = function () {
-    $board.on('click', function (e) {
+    $board.on('mousedown', function (e) {
       const cell = e.target;
       makeMove(cell);
     });
